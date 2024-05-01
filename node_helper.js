@@ -5,7 +5,7 @@
  * MIT Licensed.
  */
 
-const Trello = require("node-trello");
+const Trello = require("./node-trello-lite");
 const NodeHelper = require("node_helper");
 
 module.exports = NodeHelper.create({
@@ -52,39 +52,32 @@ module.exports = NodeHelper.create({
     },
 
     // retrieve list content
-    retrieveListContent: function(list, id) {
+    retrieveListContent: async function(list, id) {
         var self = this;
 
         if (!self.trelloConnections[id]) {
             return;
         }
+        const trello = self.trelloConnections[id];
 
-        const path = "/1/lists/" + list + "/cards";
+        try {
+            const cards = await trello.getCards(list);
 
-        self.trelloConnections[id].get(path, {}, function(error, data) {
-            if (error)
-            {
-                console.log(error);
-                self.sendSocketNotification("TRELLO_ERROR", {id: id, error: error});
-                return;
+            //Get all checklists before sending list
+            const cardsWithChecklists = cards.filter(d => !!d.idChecklists);
+            const checkListIds = cardsWithChecklists.flatMap(card => card.idChecklists);
+            const checklistData = await Promise.all(checkListIds.map(id => trello.getChecklist(id)));
+            for (const checklist of checklistData) {
+                self.sendSocketNotification("CHECK_LIST_CONTENT", {id, data: checklist});
             }
-            for (var card in data)
-            {
-                for (var checklist in data[card].idChecklists)
-                {
-                    const checklistId = data[card].idChecklists[checklist];
-                    const checklistPath = "/1/checklists/" + checklistId;
-                    self.trelloConnections[id].get(checklistPath, {}, function(error, checklistData) {
-                        if (error)
-                        {
-                            console.log(error);
-                            return;
-                        }
-                        self.sendSocketNotification("CHECK_LIST_CONTENT", {id: id, data: checklistData});
-                    });
-                }
-            }
-            self.sendSocketNotification("LIST_CONTENT", {id: id, data: data});
-        });
+
+            // Then send the list
+            self.sendSocketNotification("LIST_CONTENT", {id, data: cards});
+        }
+        catch(error) {
+            console.log(error);
+            self.sendSocketNotification("TRELLO_ERROR", {id, error});
+            return;
+        }
     },
 });

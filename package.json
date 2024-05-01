@@ -1,10 +1,10 @@
 {
   "name": "Magic-Mirror-Module-Trello",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A module for displaying Trello cards on the Magic Mirror.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jopyth/MMM-Trello"
+    "url": "git+https://github.com/benjaminflessner/MMM-Trello"
   },
   "keywords": [
     "magic mirror",
@@ -13,13 +13,10 @@
     "module"
   ],
   "author": "Joseph Bethge",
-  "contributors": "git+https://github.com/jopyth/MMM-Trello/graphs/contributors",
+  "contributors": "git+https://github.com/benjaminflessner/MMM-Trello/graphs/contributors",
   "license": "MIT",
   "bugs": {
-    "url": "git+https://github.com/jopyth/MMM-Trello/issues"
+    "url": "git+https://github.com/benjaminflessner/MMM-Trello/issues"
   },
-  "homepage": "git+https://github.com/jopyth/MMM-Trello#readme",
-  "dependencies": {
-    "node-trello": "latest"
-  }
+  "homepage": "git+https://github.com/benjaminflessner/MMM-Trello#readme"
 }

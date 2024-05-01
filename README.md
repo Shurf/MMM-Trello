@@ -10,8 +10,6 @@ Applications can be: displaying a TODO list, showing notes, or important informa
   1\. Execute the following commands from your `MagicMirror/modules` folder:
 ```bash
 git clone https://github.com/Jopyth/MMM-Trello.git # clone this repository
-cd MMM-Trello # navigate into the folder
-npm install # install dependencies
 ```
   2\. Add the module to your `config/config.js` file (see below for details).
 
@@ -19,7 +17,7 @@ npm install # install dependencies
 
 To use this module you will need a trello API Key, an access token, and your list identifier.
 
-Get your required API Key and Token [here](https://trello.com/app-key), or see 'Configuration Options' for more details.
+Get your required API Key and Token [here](https://trello.com/power-ups/admin), or see 'Configuration Options' for more details.
 Also find your list id as described [here](https://developers.trello.com/get-started/start-building#create) below *Finding a List ID*.
 
 Then, add it to the modules array in the `config/config.js` file:
@@ -52,7 +50,7 @@ The following properties can be configured:
 	<tbody>
 		<tr>
 			<td><code>api_key</code></td>
-			<td>Your trello API key, get it <a href="https://trello.com/app-key">here</a>.
+			<td>Your trello Power-up API key, get it <a href="https://trello.com/power-ups/admin">here</a>.
 				<br> <br> This value is <b>REQUIRED</b>
 			</td>
 		</tr>
