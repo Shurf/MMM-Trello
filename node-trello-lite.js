@@ -22,7 +22,7 @@ Trello.prototype.getCards = async function (listId) {
 
 Trello.prototype.getChecklist = async function (checkListId) {
   const queryString = querystring.stringify(this.addAuthArgs({}));
-  const res = await fetch(`${this.host}/1/checklxists/${checkListId}?${queryString}`);
+  const res = await fetch(`${this.host}/1/checklists/${checkListId}?${queryString}`);
   if (res.ok) {
     return res.json();
   }
